@@ -10,7 +10,7 @@ const StyledPressable = styled(Pressable);
 export function ItemCard({ item, index }) {
   return (
     <Link href={`/${item.idMeal}`} asChild>
-      <StyledPressable className="active:opacity-70">
+      <StyledPressable className="active:opacity-70 shadow-md">
         <View className="items-center shadow-sm">
           <Image
             source={{ uri: item.strMealThumb }}
@@ -18,8 +18,8 @@ export function ItemCard({ item, index }) {
             borderRadius={15}
             style={{ height: index % 3 === 0 ? hp(25) : hp(35) }}
           />
-          <View className="bg-white flex-row w-4/6 justify-around rounded-b-2xl items-center">
-            <Text className="font-bold p-1">{item.strMeal}</Text>
+          <View className="bg-white shadow-md flex-row w-4/6 justify-around rounded-b-2xl items-center">
+            <Text className="font-bold p-1 text-xl">{item.strMeal}</Text>
             <Pressable
               style={({ pressed }) => [
                 {
@@ -30,7 +30,7 @@ export function ItemCard({ item, index }) {
                 },
               ]}
             >
-              <Icon name="heart-outline" size={20} color="red" />
+              <Icon name="heart-outline" size={25} color="red" />
             </Pressable>
           </View>
         </View>

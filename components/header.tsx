@@ -1,5 +1,6 @@
 import { Text, ImageBackground, View } from "react-native";
 import { styled } from "nativewind";
+import SearchBar from "./searchBar";
 
 const StyledText = styled(Text);
 
@@ -13,13 +14,16 @@ const Header = () => {
     >
       <View style={{ width: 410, height: 200 }}>
         <Text
-          className="text-white text-5xl tracking-wide"
+          className="text-white text-5xl tracking-wide py-1 ml-2"
           style={{ fontFamily: "RobotoSerif" }}
         >
           Learn once,{" "}
           <StyledText className="text-newYellow font-bold">cook</StyledText>{" "}
           everywhere!
         </Text>
+        <View className="px-10">
+          <SearchBar />
+        </View>
       </View>
     </ImageBackground>
   );

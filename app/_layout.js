@@ -1,17 +1,14 @@
 import { Link, Stack } from "expo-router";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Layout() {
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Stack
         screenOptions={{
-          headerRight: () => (
-            <Link href="/favorites" asChild>
-              <Icon name="heart" size={30} color={"red"} />
-            </Link>
-          ),
+          headerShown: false,
         }}
       >
         <Stack.Screen
@@ -19,6 +16,6 @@ export default function Layout() {
           options={{ headerBackTitle: "Home", headerTitle: "Recipe" }}
         />
       </Stack>
-    </View>
+    </SafeAreaView>
   );
 }
