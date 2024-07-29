@@ -19,7 +19,6 @@ const Main = () => {
   //scrolls
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
-  const prevScrollY = useRef(0);
 
   useEffect(() => {
     fetchMeals();
@@ -44,7 +43,12 @@ const Main = () => {
     extrapolate: "clamp",
   });
   const scrollToTop = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    if (scrollViewRef.current) {
+      console.log("scrollViewRef is not null"); // Debugging log
+      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    } else {
+      console.log("scrollViewRef is null"); // Debugging log
+    }
   };
 
   return (
@@ -90,6 +94,8 @@ const Main = () => {
       </Animated.View>
       <View className="flex-1">
         <Animated.ScrollView
+          ref={scrollViewRef}
+          showsVerticalScrollIndicator={true}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollY } } }],
             { useNativeDriver: true }
@@ -107,7 +113,10 @@ const Main = () => {
             }}
           />
         </Animated.ScrollView>
-        <Pressable className="absolute bottom-5 right-4 bg-newButton w-16 h-16 rounded-full justify-center items-center">
+        <Pressable
+          className="absolute bottom-5 right-4 bg-newButton w-16 h-16 rounded-full justify-center items-center"
+          onPress={scrollToTop}
+        >
           <View>
             <Text>X</Text>
           </View>
