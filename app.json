@@ -6,11 +6,18 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "foodnction",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "pluggins": [
+      "expo-font",
+      {
+        "fonts": ["./assets/fonts/Roboto_Serif/RobotoSerif.ttf"]
+        }
+    ],
     "ios": {
       "supportsTablet": true
     },
