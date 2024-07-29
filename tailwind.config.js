@@ -9,6 +9,7 @@ module.exports = {
       newYellow: "#FFD300",
       newOrange: "#E98A15",
       secondary: "#443562",
+      newButton: "#15A0E9",
     },
     extend: {
       fontFamily: {

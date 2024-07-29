@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   FlatList,
   ActivityIndicator,
   View,
   Text,
-  ScrollView,
   Image,
+  Animated,
+  Pressable,
 } from "react-native";
 import { AnimatedItem } from "./itemCard";
 import useMealStore from "../store/useMealStore";
@@ -15,6 +16,11 @@ const Main = () => {
   const { meals, loading, fetchMeals, fetchCategories, categories } =
     useMealStore();
 
+  //scrolls
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const scrollViewRef = useRef(null);
+  const prevScrollY = useRef(0);
+
   useEffect(() => {
     fetchMeals();
   }, [fetchMeals]);
@@ -22,18 +28,40 @@ const Main = () => {
     fetchCategories();
   }, [fetchCategories]);
 
+  // Loading
   if (loading) {
     return <ActivityIndicator size={"large"} />;
   }
 
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, 150],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+  const headerTranslateY = scrollY.interpolate({
+    inputRange: [0, 150],
+    outputRange: [0, -190],
+    extrapolate: "clamp",
+  });
+  const scrollToTop = () => {
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+  };
+
   return (
-    <ScrollView>
-      <Header />
-      <View
-        style={{ backgroundColor: "#E98A15" }}
-        className="-top-6 br rounded-tl-3xl rounded-tr-3xl px-5"
+    <View className="flex-1">
+      <Animated.View
+        style={{
+          transform: [{ translateY: headerTranslateY }],
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          opacity: headerOpacity,
+          zIndex: 15,
+        }}
       >
-        <View className="w-full flex-row py-3">
+        <Header />
+        <View className="w-full px-5 flex-row bg-newOrange rounded-t-3xl -top-6">
           <FlatList
             data={categories}
             keyExtractor={(item) => item.idCategory}
@@ -59,17 +87,33 @@ const Main = () => {
             }}
           />
         </View>
-        <FlatList
-          data={meals}
-          keyExtractor={(item) => item.idMeal}
-          scrollEnabled={false}
-          ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-          renderItem={({ item, index }) => {
-            return <AnimatedItem item={item} index={index} />;
-          }}
-        />
+      </Animated.View>
+      <View className="flex-1">
+        <Animated.ScrollView
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true }
+          )}
+          style={{ backgroundColor: "#E98A15", flex: 1 }}
+          className="px-5 pb-5 pt-72"
+        >
+          <FlatList
+            data={meals}
+            keyExtractor={(item) => item.idMeal}
+            scrollEnabled={false}
+            ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+            renderItem={({ item, index }) => {
+              return <AnimatedItem item={item} index={index} />;
+            }}
+          />
+        </Animated.ScrollView>
+        <Pressable className="absolute bottom-5 right-4 bg-newButton w-16 h-16 rounded-full justify-center items-center">
+          <View>
+            <Text>X</Text>
+          </View>
+        </Pressable>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

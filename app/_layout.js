@@ -1,6 +1,4 @@
-import { Link, Stack } from "expo-router";
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { View } from "react-native";
+import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Layout() {
