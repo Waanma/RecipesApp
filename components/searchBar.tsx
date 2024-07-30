@@ -1,7 +1,9 @@
 import { KeyboardAvoidingView, Platform, TextInput, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import useSearchStore from "../store/useSearchStore";
 
 const SearchBar = () => {
+  const { searchText, setSearchText } = useSearchStore();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -12,7 +14,11 @@ const SearchBar = () => {
             <Ionicons name="search-outline" size={30} />
           </View>
           <View className="flex-1">
-            <TextInput placeholder="Search recipe..." />
+            <TextInput
+              value={searchText}
+              onChangeText={setSearchText}
+              placeholder="Search recipe..."
+            />
           </View>
         </View>
       </View>

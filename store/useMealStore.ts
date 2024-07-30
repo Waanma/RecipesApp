@@ -7,6 +7,7 @@ type Meal = {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
+  strYoutube: string;
 };
 
 type MealState = {

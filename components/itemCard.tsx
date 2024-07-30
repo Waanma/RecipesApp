@@ -18,18 +18,9 @@ export function ItemCard({ item, index }) {
             borderRadius={15}
             style={{ height: index % 3 === 0 ? hp(25) : hp(35) }}
           />
-          <View className="bg-white shadow-md flex-row w-4/6 justify-around rounded-b-2xl items-center">
+          <View className="bg-white shadow-md flex-row w-4/6  justify-around rounded-b-2xl items-center">
             <Text className="font-bold p-1 text-xl">{item.strMeal}</Text>
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed
-                    ? "rgb(210, 230, 255)"
-                    : "transparent",
-                  padding: 5,
-                },
-              ]}
-            >
+            <Pressable className="active:scale-125 active:opacity-75">
               <Icon name="heart-outline" size={25} color="red" />
             </Pressable>
           </View>
