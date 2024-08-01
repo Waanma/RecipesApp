@@ -8,16 +8,19 @@ type Meal = {
   strMeal: string;
   strMealThumb: string;
   strYoutube: string;
+  strCategory: string;
 };
 
 type MealState = {
   meals: Meal[];
   meal: Meal | null;
   categories: Category[];
+  selectedCategory: string;
   loading: boolean;
   fetchMeals: () => Promise<void>;
   fetchMealById: (id: string) => Promise<void>;
   fetchCategories: () => Promise<void>;
+  setSelectedCategory: (category: string) => void;
 };
 
 type Category = {
@@ -31,6 +34,7 @@ const useMealStore = create<MealState>((set) => ({
   meal: null,
   categories: [],
   loading: false,
+  selectedCategory: "All",
   fetchMeals: async () => {
     set({ loading: true });
     try {
@@ -58,6 +62,7 @@ const useMealStore = create<MealState>((set) => ({
       console.error("Error fetching meals by category: ", err);
     }
   },
+  setSelectedCategory: (category) => set({ selectedCategory: category }),
 }));
 
 export default useMealStore;

@@ -7,6 +7,7 @@ import {
   Image,
   Animated,
   Pressable,
+  GestureResponderEvent,
 } from "react-native";
 import { AnimatedItem } from "./itemCard";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -19,35 +20,38 @@ const Main = () => {
   const { meals, loading, fetchMeals, fetchCategories, categories } =
     useMealStore();
   const [filteredMeals, setFilteredMeals] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   //scrolls
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
 
   const handleFilterData = useCallback(() => {
-    if (!searchText) {
-      setFilteredMeals(meals);
-      return;
+    let filtered = meals;
+
+    if (searchText) {
+      filtered = filtered.filter((meal) =>
+        meal.strMeal.toLowerCase().includes(searchText.toLowerCase())
+      );
     }
 
-    const filtered = meals.filter((meal) =>
-      meal.strMeal.toLowerCase().includes(searchText.toLowerCase())
-    );
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter(
+        (meal) => meal.strCategory === selectedCategory
+      );
+    }
+
     setFilteredMeals(filtered);
-  }, [searchText, meals]);
+  }, [searchText, meals, selectedCategory]);
 
   useEffect(() => {
     fetchMeals();
-  }, [fetchMeals]);
-  useEffect(() => {
     fetchCategories();
-  }, [fetchCategories]);
+  }, [fetchMeals, fetchCategories]);
   useEffect(() => {
     handleFilterData();
   }, [searchText, meals, handleFilterData]);
-  useEffect(() => {
-    handleFilterData();
-  }, [searchText, meals, handleFilterData]);
+
   // Loading
   if (loading) {
     return <ActivityIndicator size={"large"} />;
@@ -68,9 +72,13 @@ const Main = () => {
       scrollViewRef.current.scrollTo({ y: 0, animated: true });
     }
   };
+  const handleCategoryPress =
+    (category: string) => (event: GestureResponderEvent) => {
+      setSelectedCategory(category);
+    };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 h-full">
       <Animated.View
         style={{
           transform: [{ translateY: headerTranslateY }],
@@ -83,7 +91,7 @@ const Main = () => {
         }}
       >
         <Header />
-        <View className="w-full px-5 flex-row bg-newOrange rounded-t-3xl -top-6">
+        <View className="w-full px-5 flex-row bg-orangeSoft rounded-t-3xl -top-6">
           <FlatList
             data={categories}
             keyExtractor={(item) => item.idCategory}
@@ -91,7 +99,10 @@ const Main = () => {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => {
               return (
-                <Pressable className="active:opacity-20 active:scale-90">
+                <Pressable
+                  className="active:opacity-20 active:scale-90"
+                  onPress={handleCategoryPress(item.strCategory)}
+                >
                   <View
                     className={`flex-1 items-center px-2 py-2 text-white ${
                       item.strCategory === "All"
@@ -120,12 +131,12 @@ const Main = () => {
             [{ nativeEvent: { contentOffset: { y: scrollY } } }],
             { useNativeDriver: true }
           )}
-          style={{ backgroundColor: "#E98A15", flex: 1 }}
-          className="px-5 pb-5 pt-72"
+          className="px-5 bg-orangeSoft"
         >
           <FlatList
             data={filteredMeals}
             keyExtractor={(item) => item.idMeal}
+            style={{ paddingTop: 290, paddingBottom: 30 }}
             scrollEnabled={false}
             ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
             renderItem={({ item, index }) => {
