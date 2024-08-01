@@ -15,8 +15,10 @@
     "pluggins": [
       "expo-font",
       {
-        "fonts": ["./assets/fonts/Roboto_Serif/RobotoSerif.ttf"]
-        }
+        "fonts": [
+          "./assets/fonts/Roboto_Serif/RobotoSerif.ttf"
+        ]
+      }
     ],
     "ios": {
       "supportsTablet": true
@@ -29,6 +31,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-video"
+    ]
   }
 }

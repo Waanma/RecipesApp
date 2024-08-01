@@ -3,6 +3,8 @@ import { View, Image, ActivityIndicator, Text, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import useMealStore from "../store/useMealStore";
 import { styled } from "nativewind";
+import { LinearGradient } from "expo-linear-gradient";
+import VideoPlayer from "../contexts/useVideoPlayer";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -53,46 +55,66 @@ const ItemDetail = () => {
   };
 
   return (
-    <StyledScrollView>
-      <StyledImage
-        source={{ uri: meal.strMealThumb }}
-        style={{ width: "100%", height: 300, resizeMode: "cover" }}
-      />
-      <StyledView className="p-4">
-        <StyledView
+    <StyledScrollView className="bg-white">
+      <View style={{ position: "relative" }}>
+        <StyledImage
+          source={{ uri: meal.strMealThumb }}
+          style={{ width: "100%", height: 370, resizeMode: "cover" }}
+        />
+        <LinearGradient
+          colors={["transparent", "white"]}
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 100,
           }}
-        >
-          <StyledText className="text-xl font-bold mb-2">
-            {meal.strMeal}
-          </StyledText>
-          <StyledView className="mb-4 bg-newButton rounded-xl">
-            <StyledText className="text-lg p-1">{meal.strArea}</StyledText>
-          </StyledView>
-        </StyledView>
-        <StyledView className="items-center">
-          <StyledView className="flex-row w-9/12 mb-4 bg-newOrange rounded-lg shadow-md">
-            <StyledView className="flex-1 p-2">
-              <StyledText className="font-bold mb-2">Ingredients:</StyledText>
-              {renderIngredients()}
+        />
+      </View>
+      <StyledView className="mx-5 bg-white -top-20 rounded-xl shadow-xl">
+        <StyledView className="p-4">
+          <StyledView
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginHorizontal: 15,
+              marginBottom: 20,
+            }}
+          >
+            <StyledView className="bg-white p-1 items-center justify-center rounded-xl shadow-xl">
+              <StyledText className="text-xl font-bold">
+                {meal.strMeal}
+              </StyledText>
             </StyledView>
-            <StyledView className="flex-1 p-2">
-              <StyledText className="font-bold mb-2">Measurements:</StyledText>
-              {renderMeasurements()}
+            <StyledView className="rounded-xl shadow-xl bg-white">
+              <StyledText className="text-lg p-1">{meal.strArea}</StyledText>
             </StyledView>
           </StyledView>
-        </StyledView>
-        <StyledView className="mb-4 bg-graySoft w-full rounded-xl">
-          <StyledText className="font-bold mb-2 m-2">Instructions:</StyledText>
-          <StyledText className="bg-white mx-2 p-2 mb-2 rounded-xl">
-            {meal.strInstructions}
-          </StyledText>
-        </StyledView>
-        <StyledView className="flex-row items-center justify-center mt-8">
-          <Text>Video: {meal.strYoutube}</Text>
+          <StyledView className="items-center">
+            <StyledView className="flex-row w-9/12 mb-4 bg-white shadow-xl rounded-lg">
+              <StyledView className="flex-1 p-2">
+                <StyledText className="font-bold mb-2">Ingredients:</StyledText>
+                {renderIngredients()}
+              </StyledView>
+              <StyledView className="flex-1 p-2">
+                <StyledText className="font-bold mb-2">
+                  Measurements:
+                </StyledText>
+                {renderMeasurements()}
+              </StyledView>
+            </StyledView>
+          </StyledView>
+          <StyledView className="mb-4 bg-graySoft w-full rounded-xl">
+            <StyledText className="font-bold mb-2 m-2">
+              Instructions:
+            </StyledText>
+            <StyledText className="bg-white mx-2 p-2 mb-2 rounded-xl">
+              {meal.strInstructions}
+            </StyledText>
+          </StyledView>
+          <VideoPlayer videoUrl={meal.strYoutube} />
         </StyledView>
       </StyledView>
     </StyledScrollView>

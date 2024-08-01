@@ -9,6 +9,7 @@ module.exports = {
       newYellow: "#FFD300",
       newOrange: "#E98A15",
       graySoft: "#B5B2B2",
+      graySoft3: "#f5f5f5 ",
       secondary: "#443562",
       newButton: "#15A0E9",
     },
