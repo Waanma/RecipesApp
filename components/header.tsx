@@ -14,21 +14,23 @@ const Header = () => {
       }}
       resizeMode="cover"
     >
-      <View style={{ width: 410, height: 200 }}>
-        <Text className="text-white text-5xl tracking-wide py-1 ml-2">
-          Learn once,{" "}
-          <StyledText className="text-newYellow font-bold">cook</StyledText>{" "}
-          everywhere!
-        </Text>
-        <View className="px-10 flex-row items-center justify-center gap-2">
-          <View className="w-[85%]">
-            <SearchBar />
+      <View style={{ width: 410, height: 250 }}>
+        <View className="pt-12">
+          <Text className="text-white text-5xl tracking-wide py-1 ml-2">
+            Learn once,{" "}
+            <StyledText className="text-newYellow font-bold">cook</StyledText>{" "}
+            everywhere!
+          </Text>
+          <View className="px-10 flex-row items-center justify-center gap-2">
+            <View className="w-[85%]">
+              <SearchBar />
+            </View>
+            <Link href={`/favorites`} asChild>
+              <Pressable className="bg-white rounded-full p-1 border-2 active:opacity-80 active:scale-90">
+                <Ionicons name="heart" size={30} color={"red"} />
+              </Pressable>
+            </Link>
           </View>
-          <Link href={`/favorites`} asChild>
-            <Pressable className="bg-white rounded-full p-1 border-2 active:opacity-80 active:scale-90">
-              <Ionicons name="heart" size={30} color={"red"} />
-            </Pressable>
-          </Link>
         </View>
       </View>
     </ImageBackground>

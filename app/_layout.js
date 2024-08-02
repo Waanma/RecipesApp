@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 
 export default function Layout() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <Stack
         screenOptions={{
           headerShown: false,
@@ -12,6 +12,6 @@ export default function Layout() {
         <Stack.Screen name="[id]" />
         <Stack.Screen name="favorites" />
       </Stack>
-    </SafeAreaView>
+    </View>
   );
 }

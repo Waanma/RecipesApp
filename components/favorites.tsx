@@ -20,7 +20,7 @@ const Favorites = () => {
   );
 
   return (
-    <View className="flex-1 w-full p-4 bg-white">
+    <View className="flex-1 w-full p-4 bg-orangeSoft">
       <Text className="text-2xl font-bold mb-4">Favorites</Text>
       {favorites.length === 0 ? (
         <Text className="text-center text-gray-500">No favorites yet</Text>
