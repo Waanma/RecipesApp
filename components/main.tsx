@@ -14,6 +14,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import useMealStore from "../store/useMealStore";
 import Header from "./header";
 import useSearchStore from "../store/useSearchStore";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Main = () => {
   const { searchText } = useSearchStore();
@@ -91,7 +93,28 @@ const Main = () => {
         }}
       >
         <Header />
-        <View className="w-full px-5 flex-row bg-orangeSoft rounded-t-3xl -top-6">
+        <View className="w-full px-5 flex-row bg-orangeSoft rounded-t-[25px] -top-6 items-center justify-center">
+          <LinearGradient
+            colors={["transparent", "#F18F01"]}
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 100,
+            }}
+          />
+          {selectedCategory === "All" ? null : (
+            <Pressable
+              className="active:opacity-20 active:scale-90"
+              onPress={handleCategoryPress("All")}
+            >
+              <View style={{ width: 50, height: 50 }}>
+                <Icon name="reply-all" size={50} color="black" />
+              </View>
+            </Pressable>
+          )}
+
           <FlatList
             data={categories}
             keyExtractor={(item) => item.idCategory}
@@ -133,16 +156,20 @@ const Main = () => {
           )}
           className="px-5 bg-orangeSoft"
         >
-          <FlatList
-            data={filteredMeals}
-            keyExtractor={(item) => item.idMeal}
-            style={{ paddingTop: 290, paddingBottom: 30 }}
-            scrollEnabled={false}
-            ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-            renderItem={({ item, index }) => {
-              return <AnimatedItem item={item} index={index} />;
-            }}
-          />
+          {filteredMeals === undefined ? (
+            <Text>Not found</Text>
+          ) : (
+            <FlatList
+              data={filteredMeals}
+              keyExtractor={(item) => item.idMeal}
+              style={{ paddingTop: 290, paddingBottom: 30 }}
+              scrollEnabled={false}
+              ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+              renderItem={({ item, index }) => {
+                return <AnimatedItem item={item} index={index} />;
+              }}
+            />
+          )}
         </Animated.ScrollView>
         <Pressable
           className="active:opacity-70 absolute bottom-5 right-4 bg-newYellow w-14 h-14 rounded-full justify-center items-center"

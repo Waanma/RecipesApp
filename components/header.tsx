@@ -13,10 +13,7 @@ const Header = () => {
       resizeMode="cover"
     >
       <View style={{ width: 410, height: 200 }}>
-        <Text
-          className="text-white text-5xl tracking-wide py-1 ml-2"
-          style={{ fontFamily: "RobotoSerif" }}
-        >
+        <Text className="text-white text-5xl tracking-wide py-1 ml-2">
           Learn once,{" "}
           <StyledText className="text-newYellow font-bold">cook</StyledText>{" "}
           everywhere!

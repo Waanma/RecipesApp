@@ -22,8 +22,8 @@ const ItemDetail = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center">
-        <ActivityIndicator size="large" color={"orange"} />
+      <View className="flex-1 items-center justify-center bg-orangeSoft">
+        <ActivityIndicator size="large" color={"white"} />
       </View>
     );
   }
@@ -59,14 +59,14 @@ const ItemDetail = () => {
   };
 
   return (
-    <StyledScrollView className="bg-white">
+    <StyledScrollView className="bg-orangeSoft">
       <View style={{ position: "relative" }}>
         <StyledImage
           source={{ uri: meal.strMealThumb }}
           style={{ width: "100%", height: 370, resizeMode: "cover" }}
         />
         <LinearGradient
-          colors={["transparent", "white"]}
+          colors={["transparent", "#F18F01"]}
           style={{
             position: "absolute",
             left: 0,
