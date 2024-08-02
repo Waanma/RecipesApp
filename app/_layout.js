@@ -9,10 +9,8 @@ export default function Layout() {
           headerShown: false,
         }}
       >
-        <Stack.Screen
-          name="[id]"
-          options={{ headerBackTitle: "Home", headerTitle: "Recipe" }}
-        />
+        <Stack.Screen name="[id]" />
+        <Stack.Screen name="favorites" />
       </Stack>
     </SafeAreaView>
   );

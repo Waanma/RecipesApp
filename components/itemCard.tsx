@@ -4,10 +4,13 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Link } from "expo-router";
 import { styled } from "nativewind";
+import useMealStore from "../store/useMealStore";
 
 const StyledPressable = styled(Pressable);
 
-export function ItemCard({ item, index }) {
+export function ItemCard({ item, index, handleFavoritesPress }) {
+  const { favorites } = useMealStore();
+  const isFavorite = favorites.some((fav) => fav.idMeal === item.idMeal);
   return (
     <Link href={`/${item.idMeal}`} asChild>
       <StyledPressable className="active:opacity-70 shadow-md">
@@ -20,8 +23,16 @@ export function ItemCard({ item, index }) {
           />
           <View className="bg-white shadow-md flex-row w-4/6  justify-around rounded-b-2xl items-center">
             <Text className="font-bold p-1 text-xl">{item.strMeal}</Text>
-            <Pressable className="active:scale-125 active:opacity-75">
-              <Icon name="heart-outline" size={25} color="red" />
+            <Pressable
+              onPress={() => handleFavoritesPress(item)}
+              className="active:scale-125 active:opacity-75"
+            >
+              {}
+              <Icon
+                name={isFavorite ? "heart" : "heart-outline"}
+                size={25}
+                color="red"
+              />
             </Pressable>
           </View>
         </View>
@@ -30,7 +41,7 @@ export function ItemCard({ item, index }) {
   );
 }
 
-export function AnimatedItem({ item, index }) {
+export function AnimatedItem({ item, index, handleFavoritesPress }) {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -44,7 +55,11 @@ export function AnimatedItem({ item, index }) {
 
   return (
     <Animated.View style={{ opacity }}>
-      <ItemCard item={item} index={index} />
+      <ItemCard
+        item={item}
+        index={index}
+        handleFavoritesPress={handleFavoritesPress}
+      />
     </Animated.View>
   );
 }

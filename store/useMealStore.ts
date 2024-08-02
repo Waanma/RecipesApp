@@ -12,6 +12,7 @@ type Meal = {
 };
 
 type MealState = {
+  favorites: Meal[];
   meals: Meal[];
   meal: Meal | null;
   categories: Category[];
@@ -21,6 +22,8 @@ type MealState = {
   fetchMealById: (id: string) => Promise<void>;
   fetchCategories: () => Promise<void>;
   setSelectedCategory: (category: string) => void;
+  addFavorite: (meal: Meal) => void;
+  removeFavorite: (id: string) => void;
 };
 
 type Category = {
@@ -33,6 +36,7 @@ const useMealStore = create<MealState>((set) => ({
   meals: [],
   meal: null,
   categories: [],
+  favorites: [],
   loading: false,
   selectedCategory: "All",
   fetchMeals: async () => {
@@ -63,6 +67,16 @@ const useMealStore = create<MealState>((set) => ({
     }
   },
   setSelectedCategory: (category) => set({ selectedCategory: category }),
+  addFavorite: (meal) =>
+    set((state) => ({
+      favorites: [...state.favorites, meal],
+    })),
+  removeFavorite: (idMeal) =>
+    set((state) => ({
+      favorites: state.favorites.filter(
+        (meal: { idMeal: string }) => meal.idMeal !== idMeal
+      ),
+    })),
 }));
 
 export default useMealStore;

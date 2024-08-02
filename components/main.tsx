@@ -19,8 +19,16 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const Main = () => {
   const { searchText } = useSearchStore();
-  const { meals, loading, fetchMeals, fetchCategories, categories } =
-    useMealStore();
+  const {
+    meals,
+    loading,
+    fetchMeals,
+    fetchCategories,
+    categories,
+    addFavorite,
+    removeFavorite,
+    favorites,
+  } = useMealStore();
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -36,13 +44,11 @@ const Main = () => {
         meal.strMeal.toLowerCase().includes(searchText.toLowerCase())
       );
     }
-
     if (selectedCategory !== "All") {
       filtered = filtered.filter(
         (meal) => meal.strCategory === selectedCategory
       );
     }
-
     setFilteredMeals(filtered);
   }, [searchText, meals, selectedCategory]);
 
@@ -78,7 +84,14 @@ const Main = () => {
     (category: string) => (event: GestureResponderEvent) => {
       setSelectedCategory(category);
     };
-
+  const handleFavoritePress = (item) => {
+    const isFavorite = favorites.some((fav) => fav.idMeal === item.idMeal);
+    if (isFavorite) {
+      removeFavorite(item.idMeal);
+    } else {
+      addFavorite(item);
+    }
+  };
   return (
     <View className="flex-1 h-full">
       <Animated.View
@@ -166,7 +179,13 @@ const Main = () => {
               scrollEnabled={false}
               ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
               renderItem={({ item, index }) => {
-                return <AnimatedItem item={item} index={index} />;
+                return (
+                  <AnimatedItem
+                    item={item}
+                    index={index}
+                    handleFavoritesPress={handleFavoritePress}
+                  />
+                );
               }}
             />
           )}

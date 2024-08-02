@@ -97,8 +97,8 @@ const ItemDetail = () => {
             </StyledView>
           </StyledView>
           <StyledView className="items-center">
-            <StyledView className="flex-row w-9/12 mb-4 bg-white shadow-xl rounded-lg">
-              <StyledView className="flex-1 p-2">
+            <StyledView className="flex-row w-10/12 mb-4 bg-white shadow-xl rounded-lg">
+              <StyledView className="flex-1 p-2 px-2">
                 <StyledText className="font-bold mb-2">Ingredients:</StyledText>
                 {renderIngredients()}
               </StyledView>
