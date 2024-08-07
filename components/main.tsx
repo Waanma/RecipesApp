@@ -16,6 +16,7 @@ import Header from "./header";
 import useSearchStore from "../store/useSearchStore";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useColorScheme } from "nativewind";
 
 const Main = () => {
   const { searchText } = useSearchStore();
@@ -31,6 +32,7 @@ const Main = () => {
   } = useMealStore();
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const { colorScheme } = useColorScheme();
 
   //scrolls
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -106,9 +108,12 @@ const Main = () => {
         }}
       >
         <Header />
-        <View className="w-full px-5 flex-row bg-orangeSoft rounded-t-[25px] -top-6 items-center justify-center">
+        <View className="w-full px-5 flex-row bg-graySoft rounded-t-[25px] -top-6 items-center justify-center">
           <LinearGradient
-            colors={["transparent", "#F18F01"]}
+            colors={[
+              "transparent",
+              `${colorScheme === "dark" ? "#0f0f0f" : "#F18F01"}`,
+            ]}
             style={{
               position: "absolute",
               left: 0,
@@ -123,7 +128,7 @@ const Main = () => {
               onPress={handleCategoryPress("All")}
             >
               <View style={{ width: 50, height: 50 }}>
-                <Icon name="reply-all" size={50} color="black" />
+                <Icon name="reply-all" size={50} color="white" />
               </View>
             </Pressable>
           )}
@@ -140,7 +145,7 @@ const Main = () => {
                   onPress={handleCategoryPress(item.strCategory)}
                 >
                   <View
-                    className={`flex-1 items-center px-2 py-2 text-white ${
+                    className={`flex-1 items-center px-2 py-2 ${
                       item.strCategory === "All"
                         ? "border-r-2 border-secondary"
                         : ""
@@ -151,7 +156,11 @@ const Main = () => {
                       width={80}
                       height={50}
                     />
-                    <Text>{item.strCategory}</Text>
+                    <Text
+                      className={`${colorScheme === "dark" ? "text-white" : "text-black"}`}
+                    >
+                      {item.strCategory}
+                    </Text>
                   </View>
                 </Pressable>
               );
@@ -167,7 +176,7 @@ const Main = () => {
             [{ nativeEvent: { contentOffset: { y: scrollY } } }],
             { useNativeDriver: true }
           )}
-          className="px-5 bg-orangeSoft"
+          className={`px-5 ${colorScheme === "dark" ? "bg-newBlack" : "bg-orangeSoft"}`}
         >
           {filteredMeals === undefined ? (
             <Text>Not found</Text>
@@ -175,7 +184,7 @@ const Main = () => {
             <FlatList
               data={filteredMeals}
               keyExtractor={(item) => item.idMeal}
-              style={{ paddingTop: 290, paddingBottom: 30 }}
+              style={{ paddingTop: 330, paddingBottom: 30 }}
               scrollEnabled={false}
               ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
               renderItem={({ item, index }) => {

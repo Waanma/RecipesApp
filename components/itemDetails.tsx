@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { View, Image, ActivityIndicator, Text, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import useMealStore from "../store/useMealStore";
-import { styled } from "nativewind";
+import { styled, useColorScheme } from "nativewind";
 import { LinearGradient } from "expo-linear-gradient";
 import VideoPlayer from "../contexts/useVideoPlayer";
+import DarkModeButton from "./darkModeButton";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -14,6 +15,7 @@ const StyledScrollView = styled(ScrollView);
 const ItemDetail = () => {
   const { id } = useLocalSearchParams();
   const { meal, loading, fetchMealById } = useMealStore();
+  const { colorScheme } = useColorScheme();
 
   useEffect(() => {
     const mealId = Array.isArray(id) ? id[0] : id;
@@ -22,7 +24,9 @@ const ItemDetail = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center bg-orangeSoft">
+      <View
+        className={`flex-1 items-center justify-center ${colorScheme === "dark" ? "bg-newBlack" : "bg-orangeSoft"}`}
+      >
         <ActivityIndicator size="large" color={"white"} />
       </View>
     );
@@ -59,14 +63,19 @@ const ItemDetail = () => {
   };
 
   return (
-    <StyledScrollView className="bg-orangeSoft">
+    <StyledScrollView
+      className={`${colorScheme === "dark" ? "bg-newBlack" : "bg-orangeSoft"}`}
+    >
       <View style={{ position: "relative" }}>
         <StyledImage
           source={{ uri: meal.strMealThumb }}
           style={{ width: "100%", height: 370, resizeMode: "cover" }}
         />
         <LinearGradient
-          colors={["transparent", "#F18F01"]}
+          colors={[
+            "transparent",
+            `${colorScheme === "dark" ? "#0f0f0f" : "#F18F01"}`,
+          ]}
           style={{
             position: "absolute",
             left: 0,

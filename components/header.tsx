@@ -1,22 +1,27 @@
 import { Text, ImageBackground, View, Pressable } from "react-native";
-import { styled } from "nativewind";
+import { styled, useColorScheme } from "nativewind";
 import SearchBar from "./searchBar";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import DarkModeButton from "./darkModeButton";
 
 const StyledText = styled(Text);
 
 const Header = () => {
+  const { colorScheme } = useColorScheme();
   return (
     <ImageBackground
       source={{
-        uri: "https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg",
+        uri: "https://images.pexels.com/photos/349609/pexels-photo-349609.jpeg?cs=srgb&dl=pexels-goumbik-349609.jpg&fm=jpg",
       }}
       resizeMode="cover"
     >
       <View style={{ width: 410, height: 250 }}>
-        <View className="pt-12">
-          <Text className="text-white text-5xl tracking-wide py-1 ml-2">
+        <DarkModeButton />
+        <View>
+          <Text
+            className={`${colorScheme === "dark" ? "text-black" : "text-white"} text-5xl tracking-wide py-1 ml-2`}
+          >
             Learn once,{" "}
             <StyledText className="text-newYellow font-bold">cook</StyledText>{" "}
             everywhere!
