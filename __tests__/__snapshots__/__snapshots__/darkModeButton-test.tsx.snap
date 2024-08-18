@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<View
+  style={
+    [
+      {
+        "width": "100%",
+      },
+      {
+        "paddingTop": 12,
+      },
+    ]
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="darkModeButton"
+  >
+    <View
+      style={
+        [
+          {
+            "marginLeft": 24,
+          },
+          {
+            "width": 48,
+          },
+          {
+            "height": 48,
+          },
+          {
+            "alignItems": "center",
+          },
+          {
+            "justifyContent": "center",
+          },
+          {
+            "borderBottomLeftRadius": 9999,
+            "borderBottomRightRadius": 9999,
+            "borderTopLeftRadius": 9999,
+            "borderTopRightRadius": 9999,
+          },
+          {
+            "backgroundColor": "#00aae4",
+          },
+        ]
+      }
+    >
+      <Text />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<DarkModeButton /> renders correctly and matches snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "width": "100%",
+      },
+      {
+        "paddingTop": 12,
+      },
+    ]
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="darkModeButton"
+  >
+    <View
+      style={
+        [
+          {
+            "marginLeft": 24,
+          },
+          {
+            "width": 48,
+          },
+          {
+            "height": 48,
+          },
+          {
+            "alignItems": "center",
+          },
+          {
+            "justifyContent": "center",
+          },
+          {
+            "borderBottomLeftRadius": 9999,
+            "borderBottomRightRadius": 9999,
+            "borderTopLeftRadius": 9999,
+            "borderTopRightRadius": 9999,
+          },
+          {
+            "backgroundColor": "#00aae4",
+          },
+        ]
+      }
+    >
+      <Text />
+    </View>
+  </View>
+</View>
+`;

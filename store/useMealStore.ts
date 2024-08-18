@@ -74,7 +74,7 @@ const useMealStore = create<MealState>((set) => ({
   removeFavorite: (idMeal) =>
     set((state) => ({
       favorites: state.favorites.filter(
-        (meal: { idMeal: string }) => meal.idMeal !== idMeal
+        (meal: { idMeal: string }) => meal.idMeal !== idMeal,
       ),
     })),
 }));
